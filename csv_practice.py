@@ -1,3 +1,8 @@
+# 1. Compared to Excel, Python is better for repeating the same task fast and on big files. I can write the steps once and run them every time without clicking around. Excel is easier for quickly looking at data and making charts, so it is better for small one-time work.
+#
+# 2. A store could use an append-mode log to record every sale or every time a report runs. Append mode is the right tool because it adds a new line each time instead of erasing the old ones, so you keep a full history.
+
+
 import csv
 from datetime import datetime
 
