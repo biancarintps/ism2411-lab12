@@ -1,25 +1,19 @@
 import csv
 
-total_rows = 0
-written_rows = 0
+# Comparison: csv.reader gives each row as a list, so you access values by index
+# which is fine for quick scripts. csv.DictReader uses the header names
+# which is clearer and safer when columns have names or might get reordered.
 
-with open("data/sales.csv", "r") as infile, open("data/cleaned.csv", "w", newline="") as outfile:
-    reader = csv.reader(infile)
-    writer = csv.writer(outfile)
+total_revenue = 0
 
-    header = next(reader)
-    writer.writerow(["Product", "Price", "Qty", "Total"])
-
+with open("data/sales.csv", "r") as f:
+    reader = csv.DictReader(f)
     for row in reader:
-        total_rows += 1
-        product = row[0]
-        price = float(row[1])
-        quantity = int(row[2])
+        product = row["product"]
+        price = float(row["price"])
+        quantity = int(row["quantity"])
         line_total = price * quantity
+        total_revenue += line_total
+        print(f"{product}: {quantity} units × ${price:.2f} = ${line_total:.2f}")
 
-        if line_total > 100:
-            writer.writerow([product, f"{price:.2f}", quantity, f"{line_total:.2f}"])
-            written_rows += 1
-
-print(f"Rows written: {written_rows}")
-print(f"Rows in original: {total_rows}")
+print(f"Total revenue: ${total_revenue:.2f}")
